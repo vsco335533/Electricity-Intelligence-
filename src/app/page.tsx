@@ -420,12 +420,12 @@ export default function Dashboard() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.05 }}
                   >
-                    <td>{bill.bill_month}</td>
-                    <td>{bill.meter_type}</td>
-                    <td><span style={{ color: '#666' }}>{bill.prev_reading}</span> <ArrowRight size={12} /> {bill.curr_reading}</td>
-                    <td className={styles.units}>{bill.units}</td>
-                    <td className={styles.amount}>₹ {Number(bill.total_amount).toFixed(2)}</td>
-                    <td>
+                    <td data-label="Month">{bill.bill_month}</td>
+                    <td data-label="Meter">{bill.meter_type}</td>
+                    <td data-label="Readings"><span style={{ color: '#666' }}>{bill.prev_reading}</span> <ArrowRight size={12} /> {bill.curr_reading}</td>
+                    <td data-label="Units" className={styles.units}>{bill.units}</td>
+                    <td data-label="Amount" className={styles.amount}>₹ {Number(bill.total_amount).toFixed(2)}</td>
+                    <td data-label="Show">
                       <button
                         className={styles.iconBtn}
                         onClick={() => setSelectedRecord(bill)}
