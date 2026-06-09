@@ -12,7 +12,11 @@ import {
   Download,
   Printer,
   ChevronDown,
-  Eye
+  Eye,
+  Info,
+  Lightbulb,
+  MapPin,
+  AlertTriangle
 } from 'lucide-react';
 import {
   LineChart,
@@ -116,11 +120,11 @@ export default function Dashboard() {
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Remove any trailing whitespace and parse
     const rawVal = currReading.trim();
     if (!rawVal) return alert("Please enter current reading");
-    
+
     const currVal = parseInt(rawVal);
     if (isNaN(currVal)) return alert("Please enter a valid numeric current reading");
 
@@ -283,8 +287,8 @@ export default function Dashboard() {
                 </div>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '10px', marginTop: '15px' }}>
-                <button 
-                  className={styles.button} 
+                <button
+                  className={styles.button}
                   style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
                   onClick={() => setSelectedRecord(currentBill)}
                 >
@@ -298,6 +302,59 @@ export default function Dashboard() {
 
       {/* Right Column: charts & History */}
       <main>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px', marginBottom: '30px' }}>
+          <motion.div
+            className={styles.glassCard}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+          >
+            <h2 className={styles.title}><MapPin size={20} color="var(--primary)" /> Pricing Terminal</h2>
+            <div className={styles.statsGrid}>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Current Rate</span>
+                <span className={styles.statValue}>₹ 7.35 <small>/unit</small></span>
+              </div>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Region</span>
+                <span className={styles.statValue}>Telangana</span>
+              </div>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#666', marginTop: '15px' }}>
+              <Info size={12} /> Rates synced with TGSPDCL LT-Cat I standard tariff.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className={styles.glassCard}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.1 }}
+          >
+            <h2 className={styles.title}><AlertTriangle size={20} color="#ffaa00" /> Grid Status</h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <div className={styles.pulseIndicator} />
+              <div>
+                <div style={{ fontWeight: 'bold' }}>Optimal Performance</div>
+                <div style={{ fontSize: '0.8rem', color: '#666' }}>No load shedding reported in GAJULARAMARAM</div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        <motion.div
+          className={styles.glassCard}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          style={{ marginBottom: '30px' }}
+        >
+          <h2 className={styles.title}><Lightbulb size={20} color="#ffd700" /> Intelligence Tips</h2>
+          <ul className={styles.tipsList}>
+            <li>Switch to LED bulbs to reduce lighting consumption by up to 80%.</li>
+            <li>Maintain AC temperature at 24°C for the most efficient energy to cooling ratio.</li>
+            <li>Unplug phantom loads (chargers) to save ~5% on monthly bills.</li>
+          </ul>
+        </motion.div>
+
         <motion.div
           className={styles.glassCard}
           initial={{ opacity: 0, y: 50 }}
@@ -369,8 +426,8 @@ export default function Dashboard() {
                     <td className={styles.units}>{bill.units}</td>
                     <td className={styles.amount}>₹ {Number(bill.total_amount).toFixed(2)}</td>
                     <td>
-                      <button 
-                        className={styles.iconBtn} 
+                      <button
+                        className={styles.iconBtn}
                         onClick={() => setSelectedRecord(bill)}
                         title="View Official Bill"
                       >

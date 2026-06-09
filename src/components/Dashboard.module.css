@@ -206,6 +206,7 @@ select.input {
         transform: translateX(100%);
     }
 }
+
 .iconBtn {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--card-border);
@@ -225,24 +226,119 @@ select.input {
     transform: scale(1.1);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1023px) {
     .container {
-        padding: 20px 10px;
+        grid-template-columns: 1fr;
+        padding: 20px 15px;
+        gap: 20px;
     }
-    
+
+    .statsGrid {
+        grid-template-columns: 1fr;
+    }
+
     .header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
-    
+}
+
+@media (max-width: 768px) {
+    .historyTable {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
     .glassCard {
         padding: 20px;
+        border-radius: 20px;
     }
-    
-    .historyTable {
-        font-size: 0.75rem;
+
+    .title {
+        font-size: 1.2rem;
     }
-    
-    .historyTable th, .historyTable td {
-        padding: 8px 4px;
+
+    /* Style for mobile grid sections that were 1fr 1fr */
+    [style*="display: grid"][style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
     }
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.statLabel {
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.statValue {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.statValue small {
+    font-size: 0.8rem;
+    color: #444;
+}
+
+.pulseIndicator {
+    width: 12px;
+    height: 12px;
+    background: #00ff00;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ff00;
+    animation: beacon 2s infinite;
+}
+
+@keyframes beacon {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.tipsList {
+    list-style: none;
+    padding: 0;
+}
+
+.tipsList li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    color: #ccc;
+}
+
+.tipsList li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
 }

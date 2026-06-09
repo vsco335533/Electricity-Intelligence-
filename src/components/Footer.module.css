@@ -1,0 +1,86 @@
+.footer {
+    background: rgba(5, 5, 5, 0.9);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 60px 40px 30px;
+    margin-top: 100px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        grid-template-columns: 1.5fr 2fr 1fr;
+    }
+}
+
+.brand h3 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.brand span {
+    color: var(--primary);
+}
+
+.brand p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.links {
+    display: flex;
+    justify-content: space-around;
+}
+
+.linkGroup h4 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.linkGroup ul {
+    list-style: none;
+}
+
+.linkGroup li {
+    color: #666;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.linkGroup li:hover {
+    color: var(--primary);
+}
+
+.social {
+    text-align: right;
+}
+
+.socialIcons {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    color: #888;
+}
+
+.socialIcons div:hover {
+    color: var(--primary);
+}
+
+.social p {
+    color: #444;
+    font-size: 0.75rem;
+}
