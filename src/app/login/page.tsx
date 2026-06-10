@@ -2,8 +2,33 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Zap, Mail, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Zap, Mail, Lock, ArrowRight, ShieldCheck, Crown, Shield, FlaskConical } from 'lucide-react';
 import styles from './Login.module.css';
+
+// Account definitions
+const ACCOUNTS = [
+    {
+        identifiers: ['dev@energycore.sys'],
+        password: 'Dev@2025',
+        name: 'Dev Master',
+        role: 'super_admin',
+        roleLabel: 'Super Admin',
+    },
+    {
+        identifiers: ['raj@admin.dev', 'rajkumar'],
+        password: 'Raj@2025',
+        name: 'Raj Kumar',
+        role: 'admin',
+        roleLabel: 'Admin',
+    },
+    {
+        identifiers: ['test@guest.dev', 'testuser'],
+        password: 'Test@2025',
+        name: 'Test User',
+        role: 'testing',
+        roleLabel: 'Testing',
+    },
+];
 
 export default function LoginPage() {
     const [identifier, setIdentifier] = useState('');
@@ -16,14 +41,17 @@ export default function LoginPage() {
         setLoading(true);
         setError('');
 
-        // Hardcoded credentials as requested
-        const validIdentifiers = ['raj@admin.dev', 'rajkumar'];
-        const validPassword = 'Raj@2025';
-
         setTimeout(() => {
-            if (validIdentifiers.includes(identifier) && password === validPassword) {
+            const matched = ACCOUNTS.find(
+                (acc) =>
+                    acc.identifiers.includes(identifier.trim()) &&
+                    password === acc.password
+            );
+
+            if (matched) {
                 localStorage.setItem('energy_auth', 'true');
-                localStorage.setItem('energy_user', identifier === 'rajkumar' ? 'Raj Kumar' : 'Admin Raj');
+                localStorage.setItem('energy_user', matched.name);
+                localStorage.setItem('energy_role', matched.role);
                 window.location.href = '/';
             } else {
                 setError('Invalid credentials. Access denied.');
@@ -90,6 +118,37 @@ export default function LoginPage() {
                         )}
                     </button>
                 </form>
+
+                {/* Access Tier Info */}
+                <div style={{
+                    marginTop: '20px',
+                    display: 'flex',
+                    gap: '8px',
+                    justifyContent: 'center',
+                    flexWrap: 'wrap'
+                }}>
+                    <span style={{
+                        display: 'flex', alignItems: 'center', gap: '5px',
+                        background: 'rgba(255,215,0,0.1)', border: '1px solid rgba(255,215,0,0.3)',
+                        borderRadius: '20px', padding: '4px 12px', fontSize: '0.72rem', color: '#ffd700'
+                    }}>
+                        <Crown size={11} /> Super Admin
+                    </span>
+                    <span style={{
+                        display: 'flex', alignItems: 'center', gap: '5px',
+                        background: 'rgba(0,242,255,0.1)', border: '1px solid rgba(0,242,255,0.3)',
+                        borderRadius: '20px', padding: '4px 12px', fontSize: '0.72rem', color: 'var(--primary)'
+                    }}>
+                        <Shield size={11} /> Admin
+                    </span>
+                    <span style={{
+                        display: 'flex', alignItems: 'center', gap: '5px',
+                        background: 'rgba(150,100,255,0.1)', border: '1px solid rgba(150,100,255,0.3)',
+                        borderRadius: '20px', padding: '4px 12px', fontSize: '0.72rem', color: '#a78bfa'
+                    }}>
+                        <FlaskConical size={11} /> Testing
+                    </span>
+                </div>
 
                 <div className={styles.footer}>
                     <ShieldCheck size={14} /> End-to-End Encrypted System

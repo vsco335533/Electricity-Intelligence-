@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Bell, User, Settings, LayoutDashboard, Menu, X } from 'lucide-react';
+import { Zap, Bell, User, Settings, LayoutDashboard, Menu, X, Info } from 'lucide-react';
 import styles from './Header.module.css';
 import Link from 'next/link';
 
@@ -32,6 +32,7 @@ export default function Header({ user, onLogout }: HeaderProps) {
             <nav className={styles.nav}>
                 <Link href="/" className={styles.navLink}><LayoutDashboard size={18} /> Dashboard</Link>
                 <Link href="/alerts" className={styles.navLink}><Bell size={18} /> Alerts</Link>
+                <Link href="/info" className={styles.navLink}><Info size={18} /> Info</Link>
                 <Link href="/settings" className={styles.navLink}><Settings size={18} /> Settings</Link>
             </nav>
 
@@ -71,6 +72,9 @@ export default function Header({ user, onLogout }: HeaderProps) {
                             </Link>
                             <Link href="/alerts" className={styles.mobileNavLink} onClick={() => setIsMenuOpen(false)}>
                                 <Bell size={24} /> Alerts
+                            </Link>
+                            <Link href="/info" className={styles.mobileNavLink} onClick={() => setIsMenuOpen(false)}>
+                                <Info size={24} /> Info
                             </Link>
                             <Link href="/settings" className={styles.mobileNavLink} onClick={() => setIsMenuOpen(false)}>
                                 <Settings size={24} /> Settings

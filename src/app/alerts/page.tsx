@@ -42,7 +42,7 @@ export default function AlertsPage() {
                 <p>Real-time Grid Surveillance & Intelligence Notifications</p>
             </header>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: '20px' }}>
+            <div className={styles.contentLayout}>
                 {alerts.map((alert, i) => (
                     <motion.div
                         key={alert.id}

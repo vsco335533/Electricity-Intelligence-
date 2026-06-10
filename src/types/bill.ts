@@ -13,7 +13,10 @@ export interface Bill {
     category?: string;
     usc_no?: string;
     consumer_name?: string;
+    address?: string;
+    due_date?: string;
+    created_by?: string;
     created_at?: string;
 }
 
-export type MeterType = 'watchmen' | 'penthouse';
+export type MeterType = 'watchmen' | 'penthouse' | 'ground_floor' | 'total';

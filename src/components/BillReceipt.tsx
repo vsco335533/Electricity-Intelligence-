@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { X, Printer, Download } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { format } from 'date-fns';
 import styles from './BillReceipt.module.css';
 import { Bill } from '@/types/bill';
 
@@ -56,73 +57,107 @@ export default function BillReceipt({ bill, onClose }: BillReceiptProps) {
 
                 <div id="official-bill" ref={receiptRef} className={styles.billContainer}>
                     <div className={styles.header}>
+                        <div className={styles.logo}>TELANGANA</div>
                         <div className={styles.logo}>TGSPDCL</div>
-                        <div className={styles.subHeader}>Telangana State Southern Power Distribution Co. Ltd.</div>
-                        <div style={{ fontSize: '0.7rem', fontWeight: 'bold' }}>ELECTRITIY BILL CUM NOTICE</div>
+                        <div className={styles.subHeader}>LT-ELECTRICITY BILL CUM NOTICE</div>
+                        <div className={styles.billMeta}>
+                            <span>Dt: {format(new Date(), 'dd/MM/yyyy')}</span>
+                            <span>Time: {format(new Date(), 'HH:mm')}</span>
+                        </div>
                     </div>
 
                     <div className={styles.section}>
-                        <span className={styles.sectionTitle}>Consumer Info</span>
+                        <span className={styles.sectionTitle}>Consumer Details :</span>
                         <div className={styles.row}>
-                            <span className={styles.label}>Consumer Name:</span>
+                            <span className={styles.label}>SC No:</span>
+                            <span className={styles.value}>0909 26558</span>
+                        </div>
+                        <div className={styles.row}>
+                            <span className={styles.label}>USC No:</span>
+                            <span className={styles.value}>115453841</span>
+                        </div>
+                        <div className={styles.row}>
+                            <span className={styles.label}>Name:</span>
                             <span className={styles.value}>{bill.consumer_name || 'MUSHAM RAJKUMAR'}</span>
                         </div>
                         <div className={styles.row}>
-                            <span className={styles.label}>USC Number:</span>
-                            <span className={styles.value}>{bill.usc_no || '115453839'}</span>
+                            <span className={styles.label}>Addr:</span>
+                            <span className={styles.value}>PLOT NO.67/PART PRAGATOOLS COLONY GAJULARAMARAM</span>
                         </div>
                         <div className={styles.row}>
-                            <span className={styles.label}>Meter Type:</span>
-                            <span className={styles.value}>{bill.meter_type.toUpperCase()}</span>
+                            <span className={styles.label}>Mobile:</span>
+                            <span className={styles.value}>7780164447</span>
                         </div>
                     </div>
 
-                    <div className={styles.section}>
-                        <span className={styles.sectionTitle}>Billing Details</span>
-                        <div className={styles.row}>
-                            <span className={styles.label}>Billing Month:</span>
-                            <span className={styles.value}>{bill.bill_month}</span>
+                    <div className={styles.gridSection}>
+                        <div className={styles.gridRow}>
+                            <span>Cat: 1B(2) Domestic</span>
+                            <span>Ph: 1</span>
                         </div>
-                        <div className={styles.row}>
-                            <span className={styles.label}>Readings:</span>
-                            <span className={styles.value}>{bill.prev_reading} TO {bill.curr_reading}</span>
+                        <div className={styles.gridRow}>
+                            <span>Contracted Load:</span>
+                            <span>2.00 KW</span>
                         </div>
-                        <div className={styles.row}>
-                            <span className={styles.label}>Total Units:</span>
-                            <span className={styles.value}>{bill.units} kWh</span>
-                        </div>
-                    </div>
-
-                    <div className={styles.section}>
-                        <span className={styles.sectionTitle}>Charge Breakdown</span>
-                        <div className={styles.row}>
-                            <span className={styles.label}>Energy Charges:</span>
-                            <span className={styles.value}>₹ {Number(bill.energy_charges).toFixed(2)}</span>
-                        </div>
-                        <div className={styles.row}>
-                            <span className={styles.label}>Fixed Charges:</span>
-                            <span className={styles.value}>₹ {Number(bill.fixed_charges).toFixed(2)}</span>
-                        </div>
-                        <div className={styles.row}>
-                            <span className={styles.label}>Customer Charges:</span>
-                            <span className={styles.value}>₹ {Number(bill.customer_charges).toFixed(2)}</span>
-                        </div>
-                        <div className={styles.row}>
-                            <span className={styles.label}>Electricity Duty:</span>
-                            <span className={styles.value}>₹ {Number(bill.electricity_duty).toFixed(2)}</span>
+                        <div className={styles.gridRow}>
+                            <span>Meter No:</span>
+                            <span>HE260122549131(IR)</span>
                         </div>
                     </div>
 
-                    <div className={styles.totalRow}>
-                        <span>TOTAL AMOUNT:</span>
-                        <span>₹ {Number(bill.total_amount).toFixed(2)}</span>
+                    <div className={styles.readingSection}>
+                        <div className={styles.readingHeader}>
+                            <span>Reading</span>
+                            <span>Date</span>
+                            <span>KWh</span>
+                        </div>
+                        <div className={styles.readingRow}>
+                            <span>Present</span>
+                            <span>{format(new Date(), 'dd/MM/yy')}</span>
+                            <span>{bill.curr_reading}</span>
+                        </div>
+                        <div className={styles.readingRow}>
+                            <span>Previous</span>
+                            <span>{format(new Date(new Date().setMonth(new Date().getMonth() - 1)), 'dd/MM/yy')}</span>
+                            <span>{bill.prev_reading}</span>
+                        </div>
+                        <div className={styles.readingRow} style={{ borderTop: '1px dashed #000', marginTop: '5px', paddingTop: '5px' }}>
+                            <span>Units: <strong>{bill.units}</strong></span>
+                            <span>Days: 31</span>
+                        </div>
+                    </div>
+
+                    <div className={styles.chargesSection}>
+                        <div className={styles.row}><span>Energy Charges</span><span>{Number(bill.energy_charges).toFixed(2)}</span></div>
+                        <div className={styles.row}><span>Fixed Charges</span><span>{Number(bill.fixed_charges).toFixed(2)}</span></div>
+                        <div className={styles.row}><span>Customer Charges</span><span>{Number(bill.customer_charges).toFixed(2)}</span></div>
+                        <div className={styles.row}><span>Electricity Duty</span><span>{Number(bill.electricity_duty).toFixed(2)}</span></div>
+                        <div className={styles.row}><span>Interest on ED</span><span>0.00</span></div>
+                        <div className={styles.row}><span>Tax / Surcharge</span><span>0.00</span></div>
+                        <div className={styles.row} style={{ fontWeight: 'bold', borderTop: '1px solid #000', paddingTop: '5px' }}>
+                            <span>Bill Amount</span><span>{Number(bill.total_amount).toFixed(2)}</span>
+                        </div>
+                    </div>
+
+                    <div className={styles.totalSection}>
+                        <div className={styles.totalDue}>
+                            <span>Total Due</span>
+                            <span>₹ {Number(bill.total_amount).toFixed(2)}</span>
+                        </div>
+                        <div className={styles.row}>
+                            <span className={styles.label}>Due Date</span>
+                            <span className={styles.value}>19-Jun-2026</span>
+                        </div>
+                        <div className={styles.row}>
+                            <span className={styles.label}>Disconn Date</span>
+                            <span className={styles.value}>03-Jul-2026</span>
+                        </div>
                     </div>
 
                     <div className={styles.footer}>
-                        <div className={styles.qrCode}>SCAN FOR PAYMENT</div>
-                        <p>This is a computer generated document.</p>
-                        <p>Southern Power Dist. Company of Telangana Ltd.</p>
-                        <p>Regd. Office: 6-1-50, Mint Compound, Hyderabad-500063</p>
+                        <div style={{ fontWeight: 'bold', marginBottom: '5px' }}>TOLL FREE: 1912</div>
+                        <div>tgouthernpower.org</div>
+                        <div style={{ fontSize: '0.6rem', marginTop: '10px' }}>Powered by Bharat Smart Services</div>
                     </div>
                 </div>
 

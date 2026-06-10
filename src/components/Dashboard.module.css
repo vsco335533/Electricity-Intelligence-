@@ -11,16 +11,40 @@
     --glass-border: #ffffff1a;
 }
 
+body {
+    background: var(--background);
+    margin: 0;
+    font-family: inherit;
+}
+
 .container {
+    width: 100%;
     max-width: 1400px;
     margin: 0 auto;
     padding: 40px 24px;
+    color: var(--foreground);
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboardLayout {
     display: grid;
     grid-template-columns: 350px 1fr;
     gap: 40px;
-    background: var(--background);
-    color: var(--foreground);
-    min-height: 100vh;
+    width: 100%;
+}
+
+.dashboardLayout main {
+    min-width: 0;
+}
+
+.contentLayout {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
 }
 
 .header {
@@ -60,7 +84,7 @@
 .title {
     font-size: 1.25rem;
     font-weight: 800;
-    margin-bottom: 24px;
+    margin-bottom: 30px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -70,13 +94,13 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
 }
 
 .formGroup {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 12px;
 }
 
 .formGroup label {
@@ -89,7 +113,7 @@
 
 .input,
 .select {
-    background: rgba(255, 255, 255, 0.05);
+    background: #1a1a1a;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 14px 16px;
@@ -99,10 +123,16 @@
     transition: all 0.3s ease;
 }
 
+.select option {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 10px;
+}
+
 .input:focus,
 .select:focus {
     border-color: var(--primary);
-    background: rgba(255, 255, 255, 0.08);
+    background: #222;
 }
 
 .button {
@@ -279,7 +309,7 @@
 
 /* Responsiveness */
 @media (max-width: 1200px) {
-    .container {
+    .dashboardLayout {
         grid-template-columns: 1fr;
     }
 }

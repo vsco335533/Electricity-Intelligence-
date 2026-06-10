@@ -18,7 +18,7 @@ export default function SettingsPage() {
                 <p>System Configuration & User Preferences</p>
             </header>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '30px' }}>
+            <div className={styles.contentLayout}>
                 {/* Profile Settings */}
                 <motion.div
                     className={styles.glassCard}
